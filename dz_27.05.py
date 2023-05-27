@@ -35,11 +35,20 @@ response = requests.get("https://uk.wikipedia.org/wiki/%D0%9F%D0%B5%D1%81_%D1%81
 #3
 response = requests.get('https://example.com/')
 
+# if response.status_code == 200:
+#     soup = BeautifulSoup(response.content, 'html.parser')
+#     ex = soup.find_all(class_='example-class')
+#     if ex:
+#         for n in ex:
+#             print(n)
+#     else:
+#         print('Error')
+
+#4
 if response.status_code == 200:
-    soup = BeautifulSoup(response.content, 'html.parser')
-    ex = soup.find_all(class_='example-class')
-    if ex:
-        for n in ex:
-            print(n)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    h1 = soup.find('h1')
+    if h1:
+        print(h1.text.strip())
     else:
         print('Error')
