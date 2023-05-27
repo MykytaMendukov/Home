@@ -17,20 +17,29 @@ response = requests.get("https://uk.wikipedia.org/") #на сайті example.co
 #2
 
 response = requests.get("https://uk.wikipedia.org/wiki/%D0%9F%D0%B5%D1%81_%D1%81%D0%B2%D1%96%D0%B9%D1%81%D1%8C%D0%BA%D0%B8%D0%B9")
+#
+# if response.status_code == 200:
+#     soup = BeautifulSoup(response.text, 'html.parser')
+#     table = soup.find_all('table')
+#     if table:
+#         for table_ in table:
+#             tr = table_.find_all('tr')
+#             for tr_ in tr:
+#                 td = tr_.find_all('td')
+#                 for td_ in td:
+#                     print(td_.text.strip())
+#                 print()
+#         else:
+#             print('Елемент "table" не був знайдений')
+
+#3
+response = requests.get('https://example.com/')
 
 if response.status_code == 200:
-    soup = BeautifulSoup(response.text, 'html.parser')
-    table = soup.find_all('table')
-    if table:
-        for table_ in table:
-            tr = table_.find_all('tr')
-            for tr_ in tr:
-                td = tr_.find_all('td')
-                for td_ in td:
-                    print(td_.text.strip())
-                print()
-        else:
-            print('Елемент "table" не був знайдений')
-
-
-
+    soup = BeautifulSoup(response.content, 'html.parser')
+    ex = soup.find_all(class_='example-class')
+    if ex:
+        for n in ex:
+            print(n)
+    else:
+        print('Error')
