@@ -16,7 +16,7 @@ def handler_text(message):
         if wikipedia.summary(name, chars=1000):
             answer = wikipedia.summary(name, chars=1000)
         else:
-            answer = 'Сталася помилка у виконанні, перевірте введене слово.'
+            answer = 'Сталася помилка у виконанні.'
     else:
         answer = f'Статті з назвою "{name}" не знайдено.'
     bot.send_message(message.chat.id, answer)
