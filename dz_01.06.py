@@ -14,7 +14,9 @@ def handler_text(message):
     response = requests.get('https://uk.wikipedia.org/wiki/' + name)
     if response.status_code == 200:
         if wikipedia.summary(name, chars=1000):
-            answer = wikipedia.summary(name, chars=1000)
+            answer = f"Ось інформація, яку вдалося знайти:\n" \
+                     f"{'https://uk.wikipedia.org/wiki/' + name}\n\n" \
+                     f"{wikipedia.summary(name, chars=1000)}\n\nПродовження за посиланням:"
         else:
             answer = 'Сталася помилка у виконанні.'
     else:
