@@ -1,6 +1,7 @@
 import telebot
 from telebot import types
 import wikipedia
+import requests
 
 bot = telebot.TeleBot('5717757940:AAGUiX7TsetGR6zxflhrmQEh2Fmo9qknZUc')
 @bot.message_handler(commands=['start'])
@@ -10,10 +11,14 @@ def start(m, res=False):
 def handler_text(message):
     name = message.text
     wikipedia.set_lang("uk")
-    if wikipedia.summary(name, chars= 1000):
-        answer = wikipedia.summary(name, chars= 1000)
+    response = requests.get('https://uk.wikipedia.org/wiki/' + name)
+    if response.status_code == 200:
+        if wikipedia.summary(name, chars=1000):
+            answer = wikipedia.summary(name, chars=1000)
+        else:
+            answer = 'Сталася помилка у виконанні, перевірте введене слово.'
     else:
-        answer = 'Такої статті не існує'
+        answer = f'Статті з назвою "{name}" не знайдено.'
     bot.send_message(message.chat.id, answer)
 
 bot.polling()
